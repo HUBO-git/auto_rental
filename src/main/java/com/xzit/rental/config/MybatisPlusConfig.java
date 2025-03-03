@@ -15,6 +15,7 @@ public class MybatisPlusConfig {
      *
      * @return 配置好的 MyBatis-Plus 拦截器实例
      */
+    @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         // 创建一个 MyBatis-Plus 拦截器实例，该拦截器用于管理多个 MyBatis-Plus 内置的拦截器
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
