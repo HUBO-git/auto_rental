@@ -29,3 +29,10 @@ mybatis-plus:
   global-config:
     db-config:
       logic-delete-field: deleted
+#密码加密配置
+encoder:
+  ctype:
+    strength: 6
+    secret: ${random.uuid}
+request:
+  login-url: /rental/user/login

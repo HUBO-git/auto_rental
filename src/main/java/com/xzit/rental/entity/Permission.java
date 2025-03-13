@@ -1,10 +1,14 @@
 package com.xzit.rental.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -54,7 +58,7 @@ public class Permission implements Serializable {
     private String routeUrl;
 
     @ApiModelProperty("权限类型 0-根目录  1-子目录  2-按钮级别")
-    private Boolean permissionType;
+    private Integer permissionType;//修改
 
     @ApiModelProperty("图标地址")
     private String icon;
@@ -73,4 +77,9 @@ public class Permission implements Serializable {
 
     @ApiModelProperty("是否删除")
     private Boolean deleted;
+
+    @TableField(exist = false)
+    @JsonInclude(JsonInclude.Include.NON_NULL)//序列化时，为空的属性不序列化
+// 子权限
+    private List<Permission> children;
 }

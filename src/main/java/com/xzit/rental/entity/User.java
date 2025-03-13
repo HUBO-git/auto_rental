@@ -1,15 +1,22 @@
 package com.xzit.rental.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * <p>
@@ -19,12 +26,11 @@ import lombok.experimental.Accessors;
  * @author coder_hu
  * @since 2025-03-02
  */
-@Getter
-@Setter
+@Data
 @Accessors(chain = true)
 @TableName("sys_user")
 @ApiModel(value = "User对象", description = "")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,16 +45,16 @@ public class User implements Serializable {
     private String password;
 
     @ApiModelProperty("账户是否过期")
-    private Boolean isAccountNonExpired;
+    private boolean isAccountNonExpired=true;
 
     @ApiModelProperty("账户是否被锁定")
-    private Boolean isAccountNonLocked;
+    private boolean isAccountNonLocked=true;
 
     @ApiModelProperty("密码是否过期")
-    private Boolean isCredentialsNonExpired;
+    private boolean isCredentialsNonExpired=true;
 
     @ApiModelProperty("账户是否可用")
-    private Boolean isEnabled;
+    private boolean isEnabled=true;
 
     @ApiModelProperty("用户真实姓名")
     private String realname;
@@ -85,4 +91,11 @@ public class User implements Serializable {
 
     @ApiModelProperty("是否删除")
     private Boolean deleted;
+
+    @TableField(exist = false)
+    //获取认证权限
+    private Collection<? extends GrantedAuthority> authorities;
+    @TableField(exist = false)
+    private List<Permission> permissionList;
+
 }
